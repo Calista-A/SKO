@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Research - SKO</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            cursor: url('cursor.png'), auto;
+            position: relative;
+        }
+        .rectangle1, .rectangle2, .rectangle3, .button1, .button2, .button3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-color: rgb(0, 0, 0);
+            border: 1pt solid white;
+            position: absolute;
+        }
+        .rectangle1, .rectangle2 {
+            font-family: Verdana, sans-serif;
+            font-size: 20pt;
+        }
+        .rectangle1 { width: 380px; height: 80px; top: 0px; left: 0px; }
+        .rectangle2 { width: 1130px; height: 80px; top: 0px; left: 380px; }
+        .rectangle3 { width: 379px; height: 503px; top: 318px; left: 0px; }
+        
+        .button1, .button2, .button3 {
+            font-family: courier, monospace;
+            font-size: 15pt;
+            width: 381px;
+            height: 80px;
+            position: absolute;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-color: rgb(0, 0, 0);
+            border: 1pt solid white;
+            word-spacing: -3pt;
+            letter-spacing: -0.5pt;
+        }
+        .button1 { top: 81px; left: 0px; }
+        .button2 { top: 160px; left: 0px; }
+        .button3 { top: 239px; left: 0px; }
+
+        .text-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            padding: 0;
+            color: white;
+            font-size: 16pt;
+            cursor: pointer;
+            font-family: Verdana, sans-serif;
+        }
+        
+        .scrollable-container {
+            width: 1110px;
+            height: 700px;
+            border: 1pt solid white;
+            overflow: auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            position: absolute;
+            top: 81px;
+            left: 380px;
+            color: white;
+            font-family: "Bookman", serif;
+            text-indent: 0px;
+            padding-top: 30px;
+        }
+        /* Ensure all headings and paragraphs align left */
+        .scrollable-container h2, 
+        .scrollable-container p, 
+        .scrollable-container figcaption, 
+        .scrollable-container .Subheader, 
+        .scrollable-container .body-text {
+            text-align: left;
+            padding-left: 40px;
+        }
+        
+        /* Header styling */
+        h2 {
+            font-family: "haettenschweiler", sans-serif;
+            font-size: 40pt;
+            margin-top: 20px;
+            margin-right: 40px;
+        }
+        .Subheader {
+            font-family: 'Lucida Grande', sans-serif;
+            font-size: 20pt;
+            margin-top: 40px;
+            margin-bottom: 5px;
+            margin-right: auto;
+        }
+
+        /* Body text styling */
+        .body-text {
+            font-family: "Bookman", serif;
+            font-size: 16pt;
+            margin-right: 40px;
+        }
+
+        /* Caption styling */
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 90%;
+            border: 0pt solid white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .image-container figcaption {
+            font-family: "Franklin Gothic Medium", sans-serif;
+            font-size: 10pt;
+            color: rgb(229, 190, 255);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            width: 80%; /* Set to 80% of the viewport */
+            max-height: 80%; /* Set max height to 80% of the viewport */
+            object-fit: contain; /* Scale images to fit */
+            margin: auto; /* Center the modal content */
+            border: 1pt solid white; /* Optional border */
+        }
+    </style>
+</head>
+<body>
+    <div class="rectangle1">Research</div>
+    <div class="rectangle2">✧✧✧ Contents ✧✧✧</div>
+    <div class="rectangle3"></div>
+    <button class="button1" onclick="updateContent(button1Content)">Guerilla Open Access Manifesto</button>
+    <button class="button2" onclick="updateContent(button2Content)">Concept Inspirations</button>
+    <button class="button3" onclick="updateContent(button3Content)">Artstyle Inspirations</button>
+    <button class="text-button" onclick="window.location.href='Home.html'">↽Home</button>
+    
+    <div class="scrollable-container" id="scrollableContainer">
+        <div class="inner-content">
+            <p>This part is the content of researches I did in making the major project "The Wiring".</p>
+            <p>Buttons on the left side are clickable.</p>
+            <p>Scroll up and down this container to look at the contents!</p>
+            <p>Images are clickable!</p>
+        </div>
+    </div>    
+
+     <!-- The Modal -->
+     <div id="myModal" class="modal" onclick="closeModal()">
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        const button1Content = `
+            <h2>Guerilla Open Access Manifesto</h2>
+            <div class="image-container">
+                 <img src="guerilla-open-access-manifesto.jpg" alt="Guerilla Open Access Manifesto Image" onclick="openModal(this.src)">         
+                 <figcaption>Image cover from ΑΝΟΙΚΤΉ, Β. (n.d.). ✩ Μανιφέστο για το Αντάρτικο της Ανοικτής Πρόσβασης // Aaron Swartz.</figcaption>
+            </div>
+            <p class="Subheader">Context</p>
+            <p class="body-text"> Aaron Swartz, July 2008, Eremo, Italy</p>
+            <p class="Subheader">Relate to Field/ Interest</p>
+            <p class="body-text">Access to Information, Education. “Information is power”, a quote that heavily inspired my major project “The-Wiring”, though short it leaves a strong impression which I agree upon.</p>
+            <p class="Subheader">Language</p>
+            <p class="body-text">The manifesto is written in English.</p>
+            <p class="Subheader">Making Meaning</p>
+            <p class="body-text">Information, like scientific and cultural heritage, are gate-kept by large corporations under the copyright law, selling them in high prices. Guerilla Open Access believes education should be accessible for everyone, and disobeying unjust laws by sharing information, isn’t immoral-it’s a moral imperative. The goal of the Open Access movement is to remove barriers and paywalls that may prohibit the public from accessing scientific research publications.</p>
+            <p class="Subheader">Chosen Phrases</p>
+            <p class="body-text">"Sharing isn’t immoral – it's a moral imperative "</p>
+            <p class="Subheader">References</p>
+            <p class="body-text">- Aaron, S. (2008). Guerilla Open Access Manifesto. Week 3 Module.</p>
+            <p class="body-text">- Wikipedia. (2024). Guerilla Open Access Manifesto. https://en.wikipedia.org/wiki/Guerilla_Open_Access_Manifesto</p>
+            <p class="body-text">- ΑΝΟΙΚΤΉ, Β. (n.d.). ✩ Μανιφέστο για το Αντάρτικο της Ανοικτής Πρόσβασης // Aaron Swartz [image]. https://www.openbook.gr/guerilla-open-access-manifesto/</p>
+            `;
+
+        const button2Content = `
+            <h2>Concept Inspirations</h2>
+            <p class="Subheader">Rafael Lozano-Hemmer's Pulse Topology </p>
+            <div class="image-container">
+                <img src="Pulse_Topology.webp" alt="Concept Inspirations Image" onclick="openModal(this.src)">
+                <figcaption>Installation view of Rafael Lozano-Hemmer, Pulse Topology, 2022 at Art Basel. © Rafael Lozano-Hemmer. Courtesy of BMW i and Superblue.</figcaption>
+            </div>
+            <p class="body-text">Pulse Topology is an installation created by Rafael Lozano-Hemmer. Exploring the beauty of human connection through immersive technology. Showcasing the working organs of the human inner body, through light, movement, and electricity, creating interesting, beautiful visuals. “The piece detects visitors’ heartbeats through technology that measures photoplethysmography, the change of opacity in your skin as blood flows, by analyzing the variations of coloration in the skin. In response, Pulse Topology’s 6,000 light bulbs glimmer and change, modulating in tandem with heartbeats, while also recording and playing the sounds of the organs’ rhythms” (Ayanna D, 2022). </p>
+            <p class="body-text">‣ References</p>
+            <p class="body-text">- Ayanna, D. (2022). Rafael Lozano-Hemmer’s Pulse Topology at Art Basel [image]. https://www.artbasel.com/stories/rafael-lozano-hemmer-pulse-topology</p>
+            <p class="body-text">- Lozano-Hemmer, R. (2022). Pulse Topology. https://www.lozano-hemmer.com/pulse_topology.php</p>
+            <p class="body-text">- Lozano-Hemmer, R. (2022). Pulse Topology. https://www.artsy.net/article/artsy-editorial-rafael-lozano-hemmers-dazzling-art-basel-installation-visualizes-heartbeats</p>
+            <p class="Subheader">Plasma Balls</p>
+            <div class="image-container">
+                <img src="Plasma.jpeg" alt="Concept Inspirations Image" onclick="openModal(this.src)">
+                <figcaption>The effect of a conducting object (a hand) touching the plasma ball by Diliff on Wikipedia.</figcaption>
+            </div>
+            <p class="body-text">The electricity at first was messy and scattered all over because they had no certain spot to go to, so they were just dispersed to their surrounding air. Meanwhile, when a hand or a finger touches the globe, the electricity has a spot to target onto. Making a visual of connection from the electricity to the hand. It is sort of metaphoric as how human interaction creates connectivity which is the pathway to sharing information.</p>
+            <p class="body-text">‣ References</p>
+            <p class="body-text">- Diliff. (2005). The effect of a conducting object (a hand) touching the plasma ball [image]. https://en.wikipedia.org/wiki/Plasma_globe#/media/File:Plasma_lamp_touching.jpg</p>
+            <p class="body-text">- Wikipedia. (2024). Plasma Globe. https://en.wikipedia.org/wiki/Plasma_globe</p>
+        `;
+
+        const button3Content = `
+            <h2>Artstyle Inspirations</h2>
+            <p class="Subheader">Susana Espitaleta</p>
+            <p class="body-text">❥ @su.espitaleta on Instagram </p>
+            <p class="body-text">❥ Susana Espitaleta Hoyos on Bēhance</p>
+            <p class="body-text">Susana Espitaleta is a Spanish Illustrator/ Artist, based in Madellín, Colombia</p>
+            <p class="body-text">‣ Which aspects: Her works have a hand drawn, pencil looking style, which is simple, and firm shaped. Giving the style a cute and fresh look, which is easy to identify yet still whimsical. </p>
+            <p class="body-text">‣ Some project inspirations: </p>
+            <div class="image-container">
+                <img src="su_1.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+            </div>
+            <div class="image-container">
+                <img src="su_2.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+                <figcaption>Enciende tu energía- Branding project on Bēhance.</figcaption>
+            </div>
+            <div class="image-container">
+                <img src="su_3.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+                <figcaption>La Enredadera - Illustration on Instagram.</figcaption>
+            </div>
+            <p class="body-text">‣ References</p>
+            <p class="body-text">- Susana, E. H. (2022). Enciende tu energía. https://www.behance.net/gallery/152016105/Enciende-tu-energia-Branding</p>
+            <p class="body-text">- Susana, E. H. (2022). La Enredadera. https://www.instagram.com/p/C9ipnZ0x0KN/?img_index=1/</p>
+            <p class="Subheader">Soy Tattoo</p>
+            <p class="body-text">❥ @soytattoo on Instagram </p>
+            <p class="body-text">Based in Seoul, Korea, @soy_tattoo is a tattoo artist, who is also on binustudio.com selling sticker tattoos.</p>
+            <p class="body-text">‣ Which aspects: Cute and simple line art style, consisting of simple shapes, minimalistic and easy to grasp.</p>
+            <p class="body-text">‣ Project inspirations: </p>
+             <div class="image-container">
+                <img src="soy_1.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+                <figcaption>Have a sparkling lucky day today! – Sticker tattoo design on Instagram.</figcaption>
+            </div>
+            <p class="body-text">‣ References</p>
+            <p class="body-text">- soy_tattoo_ (2022). Have a sparkling lucky day today! https://www.instagram.com/p/DAACqroz5RP/</p>
+            <p class="Subheader">Tattoist Pooh</p>
+            <p class="body-text">Tattooist_pooh is an anonymous tattoo artist based in Chicago. They work across anime and cartoon tattoos.</p>
+            <p class="body-text">‣ Which aspects: I took inspiration from particularly their line arts on Snoopy and Woodstock works.</p>
+            <p class="body-text">‣ Some Project inspirations: </p> 
+            <div class="image-container">
+                <img src="pooh_1.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+            </div>
+            <div class="image-container">
+                <img src="pooh_2.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+            </div>
+            <div class="image-container">
+                <img src="pooh_3.png" alt="Artstyle Inspirations Image" onclick="openModal(this.src)">
+                <figcaption>All untitled - Tattoo design on Instagram.</figcaption>
+            </div>
+            <p class="body-text">‣ References</p>
+            <p class="body-text">- tattooist_pooh. (2023). Untitled. https://www.instagram.com/p/Cph3g55v7_R/</p>
+            <p class="body-text">- tattooist_pooh. (2023). Untitled. https://www.instagram.com/p/CqRX83ePTx3/</p>
+            <p class="body-text">- tattooist_pooh. (2023). Untitled. https://www.instagram.com/p/DAC1oats1hI/
+         `;   
+
+        function updateContent(content) {
+            const scrollableContainer = document.getElementById('scrollableContainer');
+            scrollableContainer.innerHTML = content;
+        }
+
+        function openModal(imageSrc) {
+            const modal = document.getElementById('myModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.style.display = "flex"; // Change to flex for centering
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>

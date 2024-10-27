@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Functions - SKO</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white; /* Text color for visibility */
+        }
+        h2 {
+            font-family: "haettenschweiler", sans-serif;
+            font-size: 40pt;
+            margin-top: 50px;
+            text-align: left;
+            margin-right: auto;
+            padding-left: 50px;
+            margin-bottom: 0px;
+        }
+        .Subheader {
+            font-family: 'Lucida Grande', sans-serif;
+            font-size: 20pt;
+            margin-top: 40px;
+            text-align: left;
+            margin-right: auto;
+            padding-left: 50px;
+            color: rgb(187, 254, 200); /* Change text color for visibility */
+        }
+        .body-text {
+            font-family: "Bookman", serif;
+            font-size: 16pt;
+            margin: 10px 50px;
+            text-align: left;
+            margin-right: auto;
+        }
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color: white;
+            margin: 10px 0;
+        }
+        .line2 {
+            width: 100%;
+            height: 1px;
+            background-color: white;
+            margin: 10px 0;
+        }
+          /* Caption styling */
+          .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 50%;
+            border: 0pt solid white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .image-container figcaption {
+            font-family: "Franklin Gothic Medium", sans-serif;
+            font-size: 10pt;
+            color: rgb(255, 205, 111);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            width: 80%; /* Set to 80% of the viewport */
+            max-height: 80%; /* Set max height to 80% of the viewport */
+            object-fit: contain; /* Scale images to fit */
+            margin: auto; /* Center the modal content */
+            border: 1pt solid white; /* Optional border */
+        }
+        /* Rectangle styling */
+        .rectangle {
+            width: 100%;
+            height: 100px; /* Adjust height as needed */
+            background-color: rgb(0, 0, 0); /* Rectangle color */
+            position: relative; /* Ensure it stays within normal flow */
+            margin-top: 20px; /* Add some spacing above the rectangle */
+        }
+        .text-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            padding: 0;
+            color: white;
+            font-size: 16pt;
+            cursor: pointer;
+            font-family: Verdana, sans-serif;
+        }
+        .text-button2 {
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            background: none;
+            border: none;
+            padding: 0;
+            color: white;
+            font-size: 16pt;
+            cursor: pointer;
+            font-family: Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="line"></div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal" onclick="closeModal()">
+            <img class="modal-content" id="modalImage">
+        </div>
+    
+    <h2>Function Error</h2>
+    <div class="line2"></div>
+    <p class="Subheader">The Error</p>
+    <p class="body-text">I had functions in both Project1.js and second_page.js with the same name, it could lead to unexpected behavior where only the last function definition is recognized.</p>
+    <div class="image-container">
+        <img src="error1.png" alt="Function" onclick="openModal('error1.png')">
+        <figcaption>Error 1 - Function Name Conflicts (Chatgpt,2024)</figcaption>
+    </div>
+    <p class="Subheader">Why?</p>
+    <p class="body-text">JavaScript doesn't support function overloading, so the second definition overrides the first one. This means that depending on the order in which the scripts are loaded, one function could be ignored. (Chatgpt, 2024)</p>
+    <p class="Subheader">Error 2.0</p>
+    <p class="body-text">If a function is called before it's defined or if the file that contains the function is not loaded properly, it will lead to an "undefined function" error.</p>
+    <div class="image-container">
+        <img src="Error2.png" alt="Function" onclick="openModal('Error2.png')">
+        <figcaption>Error 2 - Undefined Function (Chatgpt, 2024)</figcaption>
+    </div>
+    <p class="Subheader">Why?</p>
+    <p class="body-text">The browser executes scripts in the order they are encountered. If a function is called before its definition is reached, it results in an error. (Chatgpt, 2024)</p>
+    <p class="Subheader">Fixes</p>
+    <p class="body-text">To avoid function name conflicts, use unique names for each function. To prevent "undefined function" errors, ensure that the script containing the function is loaded before it's called. (Chatgpt, 2024)</p>
+    <div class="image-container">
+        <img src="Fix1.png" alt="Function" onclick="openModal('Fix1.png')">
+        <figcaption>Fix 1 - Unique Function Names (Chatgpt, 2024)</figcaption>
+    </div>
+    <p class="body-text">In the case of a function being called before it's defined, you can use the "defer" attribute in the script tag to ensure that the script is executed after the page has loaded. (Chatgpt, 2024)</p>
+    <div class="image-container">
+        <img src="Fix2.png" alt="Function" onclick="openModal('Fix2.png')">
+        <figcaption>Fix 2 - Defer Attribute (Chatgpt, 2024)</figcaption>
+    </div>
+    <p class="Subheader">Fixed code snippets</p>
+    <div class="image-container">
+        <img src="Snippet1.png" alt="Function" onclick="openModal('Snippet1.png')">
+        <figcaption>Fixed Code index.html and Project1.js (Chatgpt, 2024)</figcaption>
+    </div>
+    <div class="image-container">
+        <img src="Snippet2.png" alt="Function" onclick="openModal('Snippet2.png')">
+        <figcaption>Fixed Code second_page.js (Chatgpt, 2024)</figcaption>
+    </div>
+    <p class="body-text">By following these, the issue on doubled up function is resolved.</p>
+    <p class="Subheader">Reference</p>
+    <p class="body-text">Chatgpt. (2024). Light Button Interaction Code. https://chatgpt.com/share/67172af8-93d8-8006-8b11-ca81c8743a3d</p>
+    
+    <div class="rectangle"></div> <!-- This rectangle should appear below the text -->
+
+    <button class="text-button2" onclick="window.location.href='Home.html'">Home →</button>
+    <button class="text-button" onclick="window.location.href='Experiments.html'">← Back</button>
+
+    <script>
+         function openModal(imageSrc) {
+            const modal = document.getElementById('myModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.style.display = "flex"; // Change to flex for centering
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
