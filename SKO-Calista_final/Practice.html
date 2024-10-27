@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Practice - SKO</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            cursor: url('cursor.png'), auto;
+            position: relative;
+        }
+         .button1, .button2, .button3,.button4, .button5 {
+        font-size: 15pt;
+        width: 300px; /* Adjust the width as needed */
+        height: 40px; /* Adjust the height as needed */
+        position: absolute; /* Ensure top and left properties work */
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Helvetica, sans-serif;
+        color: white;
+        background-color: rgb(0, 0, 0); /* Adjust the background color as needed */
+        border: 1pt solid rgb(255, 97, 244); /* Adjust the border color as needed */
+        border-radius: 10px; /* Make the buttons rounded rectangles */
+    }
+    .button1 { top: 0px; left: 0px; }
+    .button2 { top: 0px; left: 299px; }
+    .button3 { top: 0px; left: 598px; }
+    .button4 { top: 0px; left: 897px; }
+    .button5 { top: 0px; left: 1300px; width: 200px; height: 40px;}
+    .active {
+            background-color: darkblue;
+        }
+    .line {
+        position: absolute;
+        width: 100%;
+        height: 1pt;
+        top: 29.1pt;
+        background-color: rgb(255, 97, 244);
+    }
+    .scrollable-container {
+        width: 100%;
+        height: 740px;
+        border: 0pt solid white;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        padding: 10px;
+        position: absolute;
+        top: 40px;
+        left: 0; /* Start at the left of the viewport */
+        color: white;
+        font-family: "Bookman", serif;
+        text-indent: 0px;
+        padding-top: 30px;
+        text-align: left;
+        }
+        /* Ensure all headings and paragraphs align left */
+        .scrollable-container h2, 
+        .scrollable-container p, 
+        .scrollable-container figcaption, 
+        .scrollable-container .Subheader, 
+        .scrollable-container .body-text {
+            text-align: left;
+            padding-left: 40px;
+        }
+         
+        /* Header styling */
+        h2 {
+            font-family: "haettenschweiler", sans-serif;
+            font-size: 40pt;
+            margin-top: 40px;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+        .Subheader {
+            font-family: 'Lucida Grande', sans-serif;
+            font-size: 20pt;
+            margin-top: 40px;
+            margin-left: 40px;
+            margin-bottom: 5px;
+            margin-right: auto;
+        }
+
+        /* Body text styling */
+        .body-text {
+            font-family: "Bookman", serif;
+            font-size: 16pt;
+            margin-top: 20px;
+            margin-left: 40px;
+            margin-right: auto;
+            text-align: left;
+        }
+        .text-container {
+            text-align: left;
+            margin-right: auto;
+        }
+        .in-class-body-text {
+        font-family: "Bookman", serif; 
+        font-size: 16pt;              
+        margin: 20px 40px 20px 40px;       
+        font-weight: normal;         
+        padding: 0; 
+        padding-right: 40px;
+        padding-bottom: 20px;                 
+        text-indent: 0;        
+        }
+
+        /* Caption styling */
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 90%;
+            border: 0pt solid white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .image-container figcaption {
+            font-family: "Franklin Gothic Medium", sans-serif;
+            font-size: 10pt;
+            color: rgb(255, 255, 0);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            width: 80%; /* Set to 80% of the viewport */
+            max-height: 80%; /* Set max height to 80% of the viewport */
+            object-fit: contain; /* Scale images to fit */
+            margin: auto; /* Center the modal content */
+            border: 1pt solid white; /* Optional border */
+        }
+        #scrollTopButton {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        #scrollTopButton:focus {
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="line"></div>
+    <button class="button1" onclick="updateContent(button1Content, 'button1')">Newbie</button>
+    <button class="button2" onclick="updateContent(button2Content, 'button2')">Code Class</button>
+    <button class="button3" onclick="updateContent(button3Content, 'button3')">Concepting Class</button>
+    <button class="button4" onclick="updateContent(button4Content, 'button4')">Outside Class</button>
+   
+    <button class="button5" onclick="window.location.href='index.html'">Back Home</button>
+    <button id="scrollTopButton">↑</button>
+
+    <div class="scrollable-container" id="scrollableContainer">
+        <div class="inner-content">
+            <p>This part are the things I did or learned throughout the studio.</p>
+            <p>Buttons on top are clickable.</p>
+            <p>Scroll up and down this container to look at the contents!</p>
+            <p>Images are clickable!</p>
+        </div>
+    </div> 
+    
+    <!-- The Modal -->
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <img class="modal-content" id="modalImage">
+    </div>
+
+     <script>
+        const button1Content = ` 
+        <h2>WOT</h2>
+        <h2>WWW? HTML? CSS? JS? VSC? PROCESSING? GITHUB? </h2>
+        <p class="body-text">What are these phrases? Where did they come from? What do they mean? What do we use it for?</p>
+        <p class="body-text">Here are some brief explanations!</p>
+        <p class="Subheader">WWW</p>
+        <div class="image-container">
+            <img src="www.jpeg" alt="Newbie image" onclick="openModal(this.src)">
+            <figcaption>Web image by MiRev, WWW — the World Wide Web on medium</figcaption>
+        <p class="body-text">The World Wide Web or when shortened WWW, refers to all public websites that can be accessed through the internet, by using devices like laptops and phones. “Hypertext and HTTP are key components of the WWW, which enables users to access web pages by standardizing communications and data transfer between the internet's servers and clients.” (Rahul A, 2023).</p>
+        <p class="Subheader">HTML</p>
+        <div class="image-container">
+            <img src="html.png" alt="Newbie image" onclick="openModal(this.src)">
+            <figcaption>HTML VS. CSS VS. JAVASCRIPT: WHAT’S THE DIFFERENCE? by Devin Jackson</figcaption>
+        <p class="body-text">“Most web documents and pages are created using Hypertext Markup Language (HTML), a text-based way of describing how content within an HTML file is structured. HTML describes the structure of web pages using elements or tags and displays the content of these pages through a web browser.” (Rahul A, 2023).</p>
+        <p class="body-text">Basically, to access a page, our device supplies a universal identifier to the web server by using a browser, like chrome. The identifier can be a URL or URI which is unique to each web page, so no doubles!</p>
+        <p class="Subheader">CSS</p>
+        <div class="text-container">
+            <p class="body-text">⋆ "CSS stands for Cascading Style Sheets.</p>
+            <p class="body-text"> ⋆ CSS describes how HTML elements are to be displayed on screen, paper, or in other media.</p>
+            <p class="body-text"> ⋆ CSS saves a lot of work. It can control the layout of multiple web pages all at once.</p>
+            <p class="body-text"> ⋆ External stylesheets are stored in CSS files." (W3Schools, n.d.).</p>
+        </div>
+        <p class="Subheader">JS</p>
+        <div class="text-container">
+            <p class="body-text">⋆ "JavaScript is the Programming Language for the Web.</p>
+            <p class="body-text"> ⋆ JavaScript can update and change both HTML and CSS.</p>
+            <p class="body-text"> ⋆ JavaScript can calculate, manipulate, and validate data." (W3Schools, n.d.).</p>
+        </div>
+        <p class="Subheader">VSC, Processing, Github</p>
+        <div class="image-container">
+            <img src="vsc.jpeg" alt="Newbie image" onclick="openModal(this.src)">
+            <figcaption>Visual Studio Code thumbnail on Youtube</figcaption>
+        </div>
+        <div class="image-container">
+            <img src="processing.png" alt="Newbie image" onclick="openModal(this.src)">
+            <figcaption>Processing thumbnail on Wikipedia</figcaption>
+        </div>
+        <div class="image-container">
+            <img src="github.webp" alt="Newbie image" onclick="openModal(this.src)">
+            <figcaption>GitHub logo on Github Blog</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="body-text">⋆ "Visual Studio Code (VSC) is a source-code editor developed by Microsoft for Windows, Linux, and macOS. It includes support for debugging, embedded Git control, syntax highlighting, intelligent code completion, snippets, and code refactoring." (Wikipedia, 2024).</p>
+            <p class="body-text">⋆ "Processing is a flexible software sketchbook and a language for learning how to code within the context of the visual arts. It is open source and built on the Java language. It was created to teach fundamentals of computer programming within a visual context and to serve as a software sketchbook and professional production tool." (Processing Foundation, n.d.).</p>
+            <p class="body-text">⋆ "GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere." (GitHub, 2024).</p>
+            <p class="body-text"> We use all these tools to practice, learn, and create our Major Project as well as our SKO which you are currently viewing!</p>
+        </div>
+        <p class="Subheader">References</p>
+        <div class="text-container">
+            <p class="body-text">Devin, J. (2019). HTML VS. CSS VS. JAVASCRIPT: WHAT’S THE DIFFERENCE? [image]. https://www.brytdesigns.com/html-css-javascript-whats-the-difference</p>
+            <p class="body-text">GitHub. (2024). GitHub.https://docs.github.com/en/get-started/start-your-journey/about-github-and-git</p>
+            <p class="body-text">GitHub. (2024). GitHub logo [image]. https://github.blog</p>
+            <p class="body-text">MiRev. (2021). WWW — the World Wide Web[image]. https://medium.com/coinmonks/www-the-world-wide-web-8bc0ce997a9c</p>
+            <p class="body-text">Processing Foundation. (n.d.). Processing. https://processing.org/</p>
+            <p class="body-text">Rahul A. (2023). What is the World Wide Web (WWW)? https://www.techtarget.com/whatis/definition/World-Wide-Web/</p>
+            <p class="body-text">Visual Studio Code. (n.d.). Visual Studio Code logo [image]. https://www.youtube.com/@code</p>
+            <p class="body-text">Wikipedia. (2024). Processing logo [image]. https://en.wikipedia.org/wiki/Processing</p>
+            <p class="body-text">Wikipedia. (2024). Visual Studio Code. https://en.wikipedia.org/wiki/Visual_Studio_Code</p>
+            <p class="body-text">W3Schools. (n.d.). CSS Introduction. https://www.w3schools.com/css/css_intro.asp</p>
+            <p class="body-text">W3Schools. (n.d.). What is Javascript. https://www.w3schools.com/whatis/whatis_js.asp</p>
+        </div>
+        
+        `;
+        const button2Content = `
+        <h2>In Class Code Practices</h2>
+        <div class="text-container">
+            <p class="in-class-body-text">These are things I did in class that were particularly memorable if not all ~(˘▾˘~) ~(˘▾˘)~ (~˘▾˘)~</p>
+        </div>
+        <p class="Subheader">Github Setup</p>
+        <div class="image-container">
+            <img src="Git_set.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Screenshot of my Github Setup</figcaption>
+        </div>
+        <div class="image-container">
+            <img src="Git_set2.jpg" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Tutorial in class</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">I learned how to set up my Github account and repository in class. From downloading, setting up my account, getting the student account, and creating my first repository. We created a repository with a readme file and an index.hmtl. We also learned to commit and push our changes to the repository, and put up the url using setting and github pages.</p>
+        </div>
+        <p class="Subheader">Visual Studio Code Setup</p>
+        <div class="image-container">
+            <img src="VSC_set.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Screenshot of my Visual Studio Code Setup</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">I learned how to set up my Visual Studio Code in class. From downloading, setting up the extensions, and the settings. We also learned how to use the terminal, the live server, and the live share. We also learned how to connect and use our Github extentions. And ofcourse, github co-pilot!</p>
+            <p class="in-class-body-text">We set up our VSC into dark mode for the cool aesthetics and tried out coding HTML and CSS first.</p>
+        </div>
+        <p class="Subheader">HTML and CSS</p>
+        <div class="image-container">
+            <img src="Html_try.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Screenshot of index.HTML in class</figcaption>
+        </div>
+        <div class="image-container">
+            <img src="try2.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Screenshot of CSS Grid done in Class</figcaption
+        </div>
+        <div class="image-container">
+            <img src="Inevitable.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Screenshot of HTML done in Class</figcaption>
+        <div class="text-container">
+            <p class="in-class-body-text">We tried coding HTML and CSS in class. We experimented and practiced through the afternoon classes throughout the first half of the semester, ofcourse, also with Javascript, that would be on the next parts.</p>
+            <p class="in-class-body-text">On the first picture is the index.HTML. We tried positioning texts, sizing, coloring, custumising it into our cursor, making it a trail, rotating it, spinning, playing with image backgrounds, also sounds.</p>
+            <p class="in-class-body-text">On the second picture is the CSS Grid. We picked the grid code we wanted from W3schools to try it out. We tried putting in texts and images. This was a practice for SKO for an easy way to position and organize our contents.</p>
+            <p class="in-class-body-text">On the last picture is the HTML. We tried making a simple HTML code with a text, trying to imitate the crazy eight activity we did in the morning class, where we sketched eight concepts on a word that we thought of that immediate moment, choosing one to try out coding.</p>
+        </div>
+        <p class="Subheader">Processing</p>
+        <div class="image-container">
+            <img src="color hover.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Circle stretch, hover, color change, resizing. Snippets of portrait.</figcaption>
+        </div>
+        <div class="image-container">
+            <img src="buttons.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Buttons spawn tutorial</figcaption>
+        </div>
+        <div class="image-container">
+            <img src="buttons2.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Radio Button tutorial</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">In the first half of the semester, we also experimented processing along with visual studio code. We did portraits of ourselves in processing, had alot of tutorials like the pictures shows.</p>
+            <p class="in-class-body-text">On the first picture, we made a stretchable circle that changes size when we hover our mouse, then make it to changing colours, opacity and a mix of everything, we also experimented ourselves on making the portrait.</p>
+            <p class="in-class-body-text">The index.html on the last section was also made in processing, which I mixed with visual studio code to try the javascript features making an image as our cursor like inthis SKO!</p>
+            <p class="in-class-body-text"> On the second and last picture, we tried making buttons spawn and radio buttons. We also tried making the buttons change colors and sizes when hovered.</p>
+            <p class="in-class-body-text">Another one that we tried was inputing sound to our code, we used the bell sound in different ways, like as background noise, when hovered, when clicked, and when pressed.</p>
+            <p class="in-class-body-text">They were all updated every week, where we make changes to the files we did on the other classes, and sometimes, we make new files, depending on the code topic.</p>
+            <p class="in-class-body-text">Obviously, we can't cover all codes, so we look at resources like W3schools and p5js for more codes and tutorials. We also use github co-pilot to help with our codes.</p>
+            </div>
+        `;
+
+        const button3Content = `
+        <h2>AM Class (Concepting)</h2>
+         <div class="text-container">
+            <p class="in-class-body-text">These are some memorable contents we did in the morning class if not all (°◇°人°◇°)</p>
+            <p class="in-class-body-text">*ps. Some are mixed with pm class</p>
+        </div>
+        <p class="Subheader">In class Activity List</p>
+        <div class="image-container">
+            <img src="Activities.jpg" alt="In Class image" onclick="openModal(this.src)">
+        </div>
+        <div class="image-container">
+            <img src="Activities2.jpg" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Activity List</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">This are a list of activities we did throughout the studio, excluding self study</p>
+        </div>
+        <p class="Subheader">Crazy Eights</p>
+        <div class="image-container">
+            <img src="eight.jpg" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Crazy Eights activity</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">We did some crazy eight activity in class, in the earliest one, we sketched eight concepts on a word that we thought of that immediate moment. I chose the word "inevitable", since that was the word I thought of immediately, remembering someone trying to spell it. We made 8 different concepts of the word in 1 minute each. Then choose oen and tried coding it. Similarly, we also did for concepting our major project, that was the one on the picture. Though, in the end, I ended up changing my concept because of a sudden idea I thought of when daydreaming. The major project ended up to be "The-Wiring", after coming up with a sketch and asking for feedback, I started researching for inspirations.</p>
+        </div>
+        <p class="Subheader">Concrete Poetry</p>
+        <div class="image-container">
+            <img src="poem.jpg" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Concrete Poetry activity</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">As you can see on the picture above, we did some concrete poerty after reading the resources on the modules. We chose a message and turned them into a concrete poetry. I chose "The machine cannot find your memory. Imagination cache has been oblirated. Restroe default dreams? Ok". That was one of the sentences from the OK text which we had to choose from. Then after reading all of the concrete poetries in the modules, I chose some words, deconstruct them, and try make it into concrete poetry.</p>
+        </div>
+        <p class="Subheader">Game/Arcade</p>
+        <div class="image-container">
+            <img src="game.jpg" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Game/Arcade activity</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">This one was a group activity. We did it in a group of four. We decided to choose a racing car game and made a paper prototype of it. We divided parts, some made the cars, some prototyped the background, finish line, and the obstacles. We also made a console prototype of just left and right arrows. This activity was for us to practice making a paper prototype for our first assignment. It is also for us to practice communicating our concepts, designs to client, as paper prototype can be easily edited, and changed. It is a good way to try out our designs, making sure that it works, and is user friendly.</p>
+        </div>
+        <p class="Subheader">Paper Prototype</p>
+        <div class="image-container">
+            <img src="first.jpg" alt="In Class image" onclick="openModal(this.src)">
+        </div>
+        <div class="image-container">
+            <img src="first2.jpg" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Paper Prototype activity</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">This was the first paper prototype I made. It was first about a field representing the world and flowers growing representing people when resources are shared. We brought our paper prototype to class right before submiting, to gain feedbacks from peers, and look at the user experience. It was the submitted as the first assignment, though in the end changed.</p>
+        </div>
+        <p class="Subheader">Readings</p>
+        <div class="image-container">
+            <img src="Readings.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Reading List</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">Last but not least, these are the reading list on the module that we went through when finding the sentence for our major project. After reading all of them, I decided to go with Guerilla Open Access Manifesto, because I liked the phrase "Information is power.". It was very relateable and I thought it would be a good concept for my major project.</p>
+            <p class="in-class-body-text">We also read the OK text, which was the one we used for the concrete poetry. We also read the other websites, like artist inspirations, and the other readings that were on the modules.</p>
+        </div>
+        `;
+        const button4Content = `
+        <h2>Outside Class Activities</h2>
+        <div class="text-container">
+            <p class="in-class-body-text">These are some of the things I did outside the studio, if not all (⌐■_■)</p>
+        </div>
+        <p class="Subheader">Research</p>
+        <div class="text-container">
+            <p class="in-class-body-text">I did some research on the concept of my major project, "The-Wiring". The researches can be found on the "Research" button on the home page.</p>
+        </div>
+        <p class="Subheader">Copilot</p>
+        <div class="image-container">
+            <img src="copilot.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Github Copilot usage example</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">I used github copilot in seting up my html coding for this SKO. It was to build the structure of the html code. I then look at the code we did in class as a reference and build it up, then after positioning everything and sizing everything, I ask chat gpt for fuctions, and also to troubleshoot any errors.</p>
+        </div>
+        <p class="Subheader">Chat GPT</p>
+        <div class="image-container">
+            <img src="Chatgpt.png" alt="In Class image" onclick="openModal(this.src)">
+            <figcaption>Chat GPT usage example</figcaption>
+        </div>
+        <div class="text-container">
+            <p class="in-class-body-text">For functions and trouble shooting, especially in the major project, I used chatgpt alot. I prompted my questions, added my whole code, then copy and pasted them, and run it. If it does not work, I would then ask for a trouble shoot, or make a different prompt, then add the faulty code. If that still did not work, I then use the original one with least problem, and prompt a different idea. Most of the time, it likes to change my messages and positioning of my images as well as the sizes, so I would edit them my self, but use the functions, or combine them when it is 2 different messages. Though being said, it is especially good in HTML.</p>
+        </div>
+        `;
+
+          // Function to update content and set active button style
+          function updateContent(content, buttonClass) {
+            document.getElementById("scrollableContainer").innerHTML = content;
+
+            // Remove active class from all buttons
+            document.querySelectorAll("button").forEach(button => button.classList.remove("active"));
+
+            // Add active class to the clicked button
+            document.querySelector(`.${buttonClass}`).classList.add("active");
+        }
+        function scrollToTop() {
+            document.getElementById("scrollableContainer").scrollTop = 0;
+        }
+        document.getElementById("scrollTopButton").addEventListener("click", scrollToTop);
+
+        function updateContent(content) {
+            const scrollableContainer = document.getElementById('scrollableContainer');
+            scrollableContainer.innerHTML = content;
+        }
+        function openModal(imageSrc) {
+            const modal = document.getElementById('myModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.style.display = "flex"; // Change to flex for centering
+        }
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+
+    </script>
+  
+    
+</body>
+</html>
